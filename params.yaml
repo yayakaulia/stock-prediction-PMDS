@@ -11,14 +11,14 @@ cv: 5
 random_state: 123
 
 X_PATH_TRAIN: output/X_train.pkl
-Y_PATH_TRAIN: output/y_train.pkl
+Y_PATH_TRAIN: output/y_train_final.pkl
 X_PATH_VALID: output/X_valid.pkl
-Y_PATH_VALID: output/y_valid.pkl
+Y_PATH_VALID: output/y_valid_final.pkl
 X_PATH_TEST: output/X_test.pkl
-Y_PATH_TEST: output/y_test.pkl
-DUMP_TRAIN: output/preprocess_data/data/preprocessed_x_train_v1.1.pkl
-DUMP_VALID: output/preprocess_data/data/preprocessed_x_valid_v1.1.pkl
-DUMP_TEST: output/preprocess_data/data/preprocessed_x_test_v1.1.pkl
+Y_PATH_TEST: output/y_test_final.pkl
+DUMP_TRAIN: output/X_train_final.pkl
+DUMP_VALID: output/X_valid_final.pkl
+DUMP_TEST: output/X_test_final.pkl
 DUMP_PREDICT: output/predict/data/preprocessed_x_predict_v1.1.pkl
 MODEL_NAME: output/model/train/model_name_v1.1.pkl
 BEST_MODEL: output/model/train/best_estimator_v1.1.pkl
