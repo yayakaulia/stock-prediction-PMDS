@@ -2,9 +2,7 @@ TARGET_COLUMN: Close+1
 DATA_PATH: data/AMRT.csv
 DATA_PATH_2 : data/ihsg.csv
 
-scoring:
-- neg_root_mean_squared_error
-- r2
+scoring: neg_root_mean_squared_error
 n_iter_search: 3
 verbosity: 2
 cv: 5
@@ -20,6 +18,6 @@ DUMP_TRAIN: output/X_train_final.pkl
 DUMP_VALID: output/X_valid_final.pkl
 DUMP_TEST: output/X_test_final.pkl
 DUMP_PREDICT: output/predict/data/preprocessed_x_predict_v1.1.pkl
-MODEL_NAME: output/model/train/model_name_v1.1.pkl
+MODEL_NAME: output/model_name.pkl
 BEST_MODEL: output/model/train/best_estimator_v1.1.pkl
 TRAIN_LOG: output/model/train/train_log_v1.1.pkl

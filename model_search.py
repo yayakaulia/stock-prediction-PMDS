@@ -2,40 +2,67 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 34,
+   "execution_count": 5,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "ridge\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "import pandas as pd\n",
     "import numpy as np\n",
+    "from sklearn.model_selection import RandomizedSearchCV\n",
     "from sklearn import model_selection\n",
+    "from sklearn.tree import DecisionTreeRegressor\n",
     "from sklearn.ensemble import RandomForestRegressor\n",
     "from sklearn.linear_model import Ridge\n",
     "from sklearn.linear_model import Lasso\n",
-    "from sklearn.svm import LinearSVR\n",
-    "from sklearn.model_selection import TimeSeriesSplit\n",
+    "from sklearn.svm import SVR\n",
+    "from sklearn import metrics\n",
+    "import random\n",
     "import yaml\n",
-    "import joblib\n",
-    "\n",
+    "import joblib"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "f = open(\"params.yaml\", \"r\")\n",
     "params = yaml.load(f, Loader=yaml.SafeLoader)\n",
-    "f.close()\n",
-    "\n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
     "def read_data(params):\n",
     "    x_train = joblib.load(params['DUMP_TRAIN'])\n",
     "    y_train = joblib.load(params['Y_PATH_TRAIN'])\n",
     "    x_valid = joblib.load(params['DUMP_VALID'])\n",
     "    y_valid = joblib.load(params['Y_PATH_VALID'])\n",
     "\n",
-    "    return x_train, y_train, x_valid, y_valid\n",
+    "    return x_train, y_train, x_valid, y_valid"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import RandomizedSearchCV\n",
+    "from sklearn import model_selection\n",
+    "from sklearn.ensemble import RandomForestRegressor\n",
+    "from sklearn.linear_model import Ridge\n",
+    "from sklearn.linear_model import Lasso\n",
+    "from sklearn.svm import LinearSVR\n",
+    "from sklearn import metrics\n",
+    "from sklearn.model_selection import TimeSeriesSplit\n",
+    "import yaml\n",
+    "\n",
     "x_train, y_train, x_valid, y_valid  = read_data(params)\n",
     "\n",
     "def model_search(x_train, y_train):\n",
@@ -46,13 +73,13 @@
     "\n",
     "    models = []\n",
     "    models.append(('RandomForrest', RandomForestRegressor()))\n",
-    "    models.append(('lasso', Lasso()))\n",
-    "    models.append(('ridge', Ridge()))\n",
+    "    models.append(('Lasso', Lasso()))\n",
+    "    models.append(('Ridge', Ridge()))\n",
     "    models.append(('SVR', LinearSVR()))\n",
     "    \n",
     "    results = []\n",
     "    names = []\n",
-    "    scoring = params[\"scoring\"]\n",
+    "    scoring = 'neg_mean_absolute_error'\n",
     "    for name, model in models:\n",
     "        #kfold = model_selection.KFold(n_splits=5, shuffle=False)\n",
     "        cv_results = model_selection.cross_val_score(model, x_train, y_train, cv=ts_cv, scoring=scoring)\n",
@@ -64,8 +91,25 @@
     "    max_model = df.idxmax()\n",
     "    best_model = max_model[0]\n",
     "    print(best_model)\n",
-    "    joblib.dump(best_model, 'output/model_name.pkl')\n",
-    "model_search(x_train, y_train)"
+    "    joblib.dump(best_model, 'output/model_name.pkl')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Ridge\n"
+     ]
+    }
+   ],
+   "source": [
+    "yut = model_search(x_train, y_train)\n",
+    "yut"
    ]
   }
  ],
