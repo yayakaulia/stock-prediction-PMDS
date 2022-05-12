@@ -79,7 +79,7 @@
     "    \n",
     "    results = []\n",
     "    names = []\n",
-    "    scoring = 'neg_mean_absolute_error'\n",
+    "    scoring = params[\"scoring\"]\n",
     "    for name, model in models:\n",
     "        #kfold = model_selection.KFold(n_splits=5, shuffle=False)\n",
     "        cv_results = model_selection.cross_val_score(model, x_train, y_train, cv=ts_cv, scoring=scoring)\n",

@@ -18,6 +18,8 @@ DUMP_TRAIN: output/X_train_final.pkl
 DUMP_VALID: output/X_valid_final.pkl
 DUMP_TEST: output/X_test_final.pkl
 DUMP_PREDICT: output/predict/data/preprocessed_x_predict_v1.1.pkl
+BEST_NAME: output/best_name.pkl
 MODEL_NAME: output/model_name.pkl
-BEST_MODEL: output/model/train/best_estimator_v1.1.pkl
+BEST_MODEL: output/best_estimator.pkl
 TRAIN_LOG: output/model/train/train_log_v1.1.pkl
+RESULT_TRAIN: output/result.pkl

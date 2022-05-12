@@ -1,6 +1,7 @@
 import joblib
 import yaml
 import numpy as np
+from sklearn import metrics
 
 f = open("params.yaml", "r")
 params = yaml.load(f, Loader=yaml.SafeLoader)
@@ -15,7 +16,7 @@ def read_data(params):
     return x_train, y_train, x_valid, y_valid
 
 def model_ridge():
-    param_dist = {'alpha': [0.1, 0.25, 0.5, 0.75]}
+    param_dist = {'alpha': [0.1, 0.25, 0.5, 0.75], 'solver': ['svd', 'cholesky', 'lsqr', 'sag']}
     return param_dist
 
 def model_lasso():
@@ -38,3 +39,18 @@ def get_params():
 
     paramet = eval(joblib.load(params['MODEL_NAME']))
     return paramet
+
+def evaluate(true, predicted):
+    mae = metrics.mean_absolute_error(true, predicted)
+    mse = metrics.mean_squared_error(true, predicted)
+    rmse = np.sqrt(metrics.mean_squared_error(true, predicted))
+    r2_square = metrics.r2_score(true, predicted)
+    return mae, mse, rmse, r2_square
+
+def validation_score(x_valid, y_valid, model_fitted):
+    
+    # Report default
+    y_predicted = model_fitted.predict(x_valid)
+    mae, mse, rmse, r2_square = evaluate(y_valid, y_predicted)
+    score = {'mae':mae, 'mse':mse, 'rmse':rmse, 'r2': r2_square}
+    return score
